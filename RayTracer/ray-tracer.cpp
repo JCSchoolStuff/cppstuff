@@ -81,7 +81,7 @@ int main(){
   /// You must uncomment the include and namespace lines above
   // cout << "Hello, world" << endl;
   Vector3 temp = Vector3{0, 0, 0};
-  temp += Vector3{1, 2, 3};
+  temp += Vector3{1, 1, 1};
   cout << temp << endl;
 
   /// Width of the final image
@@ -119,7 +119,8 @@ int main(){
       Vector3 camera_up = Vector3{0, 1, 0};
 
       Vector3 target{x/w*2-1, -(y/h*2-1), 0};
-      Vector3 ray = (target - camera_origin).normalize();
+      Vector3 temp = (target - camera_origin);
+      Vector3 ray = temp.normalize();
 
       //find where we hit the plane
       Vector3 edge_one = triangle.one - triangle.two;
