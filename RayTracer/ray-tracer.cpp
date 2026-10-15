@@ -118,7 +118,7 @@ int main(){
       Vector3 camera_look_at = Vector3{0, 0, 0};
       Vector3 camera_up = Vector3{0, 1, 0};
 
-      Vector3 target{x/w*2-1, -(y/h*2-1), 0};
+      Vector3 target{x/(float)w*2-1, -(y/(float)h*2-1), 0};
       Vector3 temp = (target - camera_origin);
       Vector3 ray = temp.normalize();
 
