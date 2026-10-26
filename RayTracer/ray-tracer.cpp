@@ -32,12 +32,14 @@ int main(){
   /// The 1d array for storing the pixel we have generated
   unsigned char pixels[w * h * 3];
 
-  Triangle triangle = Triangle{Vector3{-1, -.7, 0}, Vector3{-.2, -1, .4}, Vector3{-.4, .8, 0}};
-  Triangle triangle2 = Triangle{Vector3{-1, -.7, .5}, Vector3{-.2, -1, -.4}, Vector3{-.4, .8, .3}};
+  Triangle triangle = Triangle{Vector3{-1, -1, 0}, Vector3{-1, 1, 0}, Vector3{0, 0, 0}};
+  Triangle triangle2 = Triangle{Vector3{-1, 1, 1}, Vector3{.3, .8, -.3}, Vector3{0, 0, .4}};
+  Triangle triangle3 = Triangle{Vector3{.6, -1, -.7}, Vector3{.3, .8, -.3}, Vector3{0, 0, .4}};
+  Triangle triangle4 = Triangle{Vector3{-1, -.5, .2}, Vector3{1, -1, .2}, Vector3{1, -.2, .2}};
 
-  vector<Triangle> triangles = {triangle, triangle2};
+  vector<Triangle> triangles = {triangle, triangle2, triangle3, triangle4};
 
-  Vector3 background_color = Vector3{20, 150, 227};
+  Vector3 background_color = Vector3{222, 141, 27};
 
   /// Loop over each line doing down
   for (int y = 0; y < h; y++){
@@ -105,9 +107,9 @@ int main(){
         else{
           // in the triangle
           closest_t = t;
-          r = 130 * u + 255 * v + 200 * a;
-          g = 0 * u + 255 * v + 33 * a;
-          b = 100 * u + 255 * v + 28 * a;
+          r = 122 * u + 204 * v + 90 * a;
+          g = 31 * u + 255 * v + 70 * a;
+          b = 200 * u + 134 * v + 125 * a;
         }
       }
       /// Assign the r, g, and b values to the pixel at index
