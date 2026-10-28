@@ -1,19 +1,20 @@
 /// Include the image write library and enable it
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
+#include "file_util.h"
 
 /// Uncomment these lines if you want to debug using couts
 #include <iostream>
 #include <vector>
 #include "Vector3.hpp"
 #include "Triangle.hpp"
-using namespace std;
+//#include "yuh.obj"
 
 /// Uncomment these lines if you happen to add a Vector3 and want to debug :)
 
-inline std::ostream &operator<<(std::ostream &os, const Vector3 &v){
-  return os << '(' << v.x << ", " << v.y << ", " << v.z << ')';
-}
+// inline std::ostream &operator<<(std::ostream &os, const Vector3 &v){
+//   return os << '(' << v.x << ", " << v.y << ", " << v.z << ')';
+// }
 
 int main(){
   /// Example of how to debug with couts.
@@ -42,7 +43,7 @@ int main(){
   Vector3 background_color = Vector3{222, 141, 27};
 
   /// Loop over each line doing down
-  for (int y = 0; y < h; y++){
+  for(int y = 0; y < h; y++){
     /// While going down, loop over every pixel going right
     for (int x = 0; x < w; x++){
       /// Figure out our index in the 1d array of pixels

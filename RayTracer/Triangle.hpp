@@ -6,6 +6,8 @@
 class Triangle{
   public:
     Vector3 one, two, three;
+    Vector3 u, v, w;
+    Vector3 norm1, norm2, norm3;
 };
 
 #endif
