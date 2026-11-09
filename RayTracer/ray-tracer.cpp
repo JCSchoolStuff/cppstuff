@@ -27,11 +27,14 @@ const int h = 640;
 /// The 1d array for storing the pixel we have generated
 unsigned char pixels[w * h * 3];
 
-//vector<string> objRead = readLines("yuh.obj");
+vector<Triangle> triangles;
+vector<Vector3> vertices;
+vector<Vector3> normals;
+vector<Vector3> uvs;
 
 // Left Wall
-Triangle triangle01 = Triangle{Vector3{-1, 1, -2}, Vector3{-1, 1, -1}, Vector3{-1, -1, -2}};
-Triangle triangle02 = Triangle{Vector3{-1, 1, -1}, Vector3{-1, -1, -1}, Vector3{-1, -1, -2}};
+// Triangle triangle01 = Triangle{Vector3{-1, 1, -2}, Vector3{-1, 1, -1}, Vector3{-1, -1, -2}};
+// Triangle triangle02 = Triangle{Vector3{-1, 1, -1}, Vector3{-1, -1, -1}, Vector3{-1, -1, -2}};
 
 // Right Wall
 // Triangle triangle03 = Triangle{Vector3{1, 1, -1}, Vector3{1, 1, -2}, Vector3{1, -1, -2}};
@@ -42,19 +45,19 @@ Triangle triangle02 = Triangle{Vector3{-1, 1, -1}, Vector3{-1, -1, -1}, Vector3{
 // Triangle triangle06 = Triangle{Vector3{1, 1, -1}, Vector3{-1, 1, -1}, Vector3{1, 1, -2}};
 
 // Bottom Wall
-Triangle triangle07 = Triangle{Vector3{-1, -1, -2}, Vector3{-1, -1, -1}, Vector3{1, -1, -2}};
-Triangle triangle08 = Triangle{Vector3{-1, -1, -1}, Vector3{1, -1, -1}, Vector3{1, -1, -2}};
+// Triangle triangle07 = Triangle{Vector3{-1, -1, -2}, Vector3{-1, -1, -1}, Vector3{1, -1, -2}};
+// Triangle triangle08 = Triangle{Vector3{-1, -1, -1}, Vector3{1, -1, -1}, Vector3{1, -1, -2}};
 
 // Back Wall
-Triangle triangle09 = Triangle{Vector3{-1, 1, -2}, Vector3{-1, -1, -1}, Vector3{1, -1, -2}};
-Triangle triangle10 = Triangle{Vector3{1, 1, -2}, Vector3{-1, 1, -1}, Vector3{1, -1, -2}};
+// Triangle triangle09 = Triangle{Vector3{-1, 1, -2}, Vector3{-1, -1, -1}, Vector3{1, -1, -2}};
+// Triangle triangle10 = Triangle{Vector3{1, 1, -2}, Vector3{-1, 1, -1}, Vector3{1, -1, -2}};
 
-vector<Triangle> triangles = {
-    triangle01, triangle02,
-    //triangle03, triangle04,
-    // triangle05, triangle06,
-    triangle07, triangle08,
-    triangle09, triangle10};
+// vector<Triangle> triangles = {
+//     triangle01, triangle02,
+//     triangle03, triangle04,
+//     triangle05, triangle06,
+//     triangle07, triangle08,
+//     triangle09, triangle10};
 
 Vector3 background_color = Vector3{132, 55, 176};
 
@@ -189,6 +192,43 @@ Vector3 trace_ray(Vector3 origin, Vector3 direction, int bounces = 2)
 
 int main()
 {
+  vector<string> objRead = readLines("yuh.obj");
+  for (const string &line : objRead)
+  {
+    vector<string> bluh = split(line, ' ');
+    if (bluh[0] == "v"){
+      Vector3 vertex = Vector3{stof(bluh[1]), stof(bluh[2]), stof(bluh[3])};
+      vertices.push_back(vertex);
+    }
+    if (bluh[0] == "vn"){
+      Vector3 normal = Vector3{stof(bluh[1]), stof(bluh[2]), stof(bluh[3])};
+      normals.push_back(normal);
+    }
+    if (bluh[0] == "vt"){
+      Vector3 uv = Vector3{stof(bluh[1]), stof(bluh[2]), 0};
+      uvs.push_back(uv);
+    }
+    if (bluh[0] == "f"){
+      for (const string &face : bluh){
+        cout << face << endl;
+        if (face != "f"){
+          vector<string> faceVerticies = split(face, '/');
+          //cout << faceVerticies[1] << endl;
+          Triangle faceTriangle;
+          faceTriangle.one = vertices[stoi(faceVerticies[0]) - 1];
+          faceTriangle.two = vertices[stoi(faceVerticies[1]) - 1];
+          faceTriangle.three = vertices[stoi(faceVerticies[2]) - 1];
+          faceTriangle.u = uvs[0];
+          faceTriangle.v = uvs[1];
+          faceTriangle.w = uvs[2];
+          faceTriangle.norm1 = normals[0];
+          faceTriangle.norm2 = normals[1];
+          faceTriangle.norm3 = normals[2];
+          triangles.push_back(faceTriangle);
+        }
+      }
+    }
+  }
   // how do I ray-trace?
   Vector3 camera_origin = Vector3{0, 0, 1};
   Vector3 camera_look_at = Vector3{0, 0, 0};
