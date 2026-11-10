@@ -192,6 +192,7 @@ Vector3 trace_ray(Vector3 origin, Vector3 direction, int bounces = 2)
 
 int main()
 {
+  int faceCount = 0;
   vector<string> objRead = readLines("yuh.obj");
   for (const string &line : objRead)
   {
@@ -213,17 +214,32 @@ int main()
         cout << face << endl;
         if (face != "f"){
           vector<string> faceVerticies = split(face, '/');
-          //cout << faceVerticies[1] << endl;
+          int faceVertex = 0;
           Triangle faceTriangle;
-          faceTriangle.one = vertices[stoi(faceVerticies[0]) - 1];
-          faceTriangle.two = vertices[stoi(faceVerticies[1]) - 1];
-          faceTriangle.three = vertices[stoi(faceVerticies[2]) - 1];
-          faceTriangle.u = uvs[0];
-          faceTriangle.v = uvs[1];
-          faceTriangle.w = uvs[2];
-          faceTriangle.norm1 = normals[0];
-          faceTriangle.norm2 = normals[1];
-          faceTriangle.norm3 = normals[2];
+          if(faceVertex = 0){
+            faceTriangle.one = vertices[stoi(faceVerticies[0]) - 1];
+            cout << vertices[stoi(faceVerticies[0]) - 1] << endl;
+            faceTriangle.u = uvs[stoi(faceVerticies[1]) - 1];
+            cout << uvs[stoi(faceVerticies[1]) - 1] << endl;
+            faceTriangle.norm1 = normals[stoi(faceVerticies[2]) - 1];
+            cout << normals[stoi(faceVerticies[2]) - 1] << endl;
+          }
+          else if(faceVertex = 1){
+            faceTriangle.two = vertices[stoi(faceVerticies[0]) - 1];
+            cout << vertices[stoi(faceVerticies[0]) - 1] << endl;
+            faceTriangle.v = uvs[stoi(faceVerticies[1]) - 1];
+            cout << uvs[stoi(faceVerticies[1]) - 1] << endl;
+            faceTriangle.norm2 = normals[stoi(faceVerticies[2]) - 1];
+            cout << normals[stoi(faceVerticies[2]) - 1] << endl;
+          }
+          else if(faceVertex = 2){
+            faceTriangle.three = vertices[stoi(faceVerticies[0]) - 1];
+            cout << vertices[stoi(faceVerticies[0]) - 1] << endl;
+            faceTriangle.w = uvs[stoi(faceVerticies[1]) - 1];
+            cout << uvs[stoi(faceVerticies[1]) - 1] << endl;
+            faceTriangle.norm3 = normals[stoi(faceVerticies[2]) - 1];
+            cout << normals[stoi(faceVerticies[2]) - 1] << endl;
+          }
           triangles.push_back(faceTriangle);
         }
       }
