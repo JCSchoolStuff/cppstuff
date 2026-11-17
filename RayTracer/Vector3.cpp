@@ -38,6 +38,8 @@ float Vector3::length(){
 
 Vector3 Vector3::normalize(){
     float l = length();
+    if (l == 0)
+        return Vector3{0, 0, 0};
     return Vector3{x / l, y / l, z / l};
 }
 

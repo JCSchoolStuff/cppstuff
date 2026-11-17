@@ -32,33 +32,6 @@ vector<Vector3> vertices;
 vector<Vector3> normals;
 vector<Vector3> uvs;
 
-// Left Wall
-// Triangle triangle01 = Triangle{Vector3{-1, 1, -2}, Vector3{-1, 1, -1}, Vector3{-1, -1, -2}};
-// Triangle triangle02 = Triangle{Vector3{-1, 1, -1}, Vector3{-1, -1, -1}, Vector3{-1, -1, -2}};
-
-// Right Wall
-// Triangle triangle03 = Triangle{Vector3{1, 1, -1}, Vector3{1, 1, -2}, Vector3{1, -1, -2}};
-// Triangle triangle04 = Triangle{Vector3{1, -1, -1}, Vector3{1, 1, -1}, Vector3{1, -1, -2}};
-
-// Top Wall
-// Triangle triangle05 = Triangle{Vector3{-1, 1, -1}, Vector3{-1, 1, -2}, Vector3{1, 1, -2}};
-// Triangle triangle06 = Triangle{Vector3{1, 1, -1}, Vector3{-1, 1, -1}, Vector3{1, 1, -2}};
-
-// Bottom Wall
-// Triangle triangle07 = Triangle{Vector3{-1, -1, -2}, Vector3{-1, -1, -1}, Vector3{1, -1, -2}};
-// Triangle triangle08 = Triangle{Vector3{-1, -1, -1}, Vector3{1, -1, -1}, Vector3{1, -1, -2}};
-
-// Back Wall
-// Triangle triangle09 = Triangle{Vector3{-1, 1, -2}, Vector3{-1, -1, -1}, Vector3{1, -1, -2}};
-// Triangle triangle10 = Triangle{Vector3{1, 1, -2}, Vector3{-1, 1, -1}, Vector3{1, -1, -2}};
-
-// vector<Triangle> triangles = {
-//     triangle01, triangle02,
-//     triangle03, triangle04,
-//     triangle05, triangle06,
-//     triangle07, triangle08,
-//     triangle09, triangle10};
-
 Vector3 background_color = Vector3{132, 55, 176};
 
 float trace_ray_distance(Vector3 origin, Vector3 direction)
@@ -192,8 +165,7 @@ Vector3 trace_ray(Vector3 origin, Vector3 direction, int bounces = 2)
 
 int main()
 {
-  int faceCount = 0;
-  vector<string> objRead = readLines("yuh.obj");
+  vector<string> objRead = readLines("rotatecube.obj");
   for (const string &line : objRead)
   {
     vector<string> bluh = split(line, ' ');
@@ -210,41 +182,46 @@ int main()
       uvs.push_back(uv);
     }
     if (bluh[0] == "f"){
+      Triangle faceTriangle;
+      int vertexCount = 0;
       for (const string &face : bluh){
         cout << face << endl;
         if (face != "f"){
           vector<string> faceVerticies = split(face, '/');
-          int faceVertex = 0;
-          Triangle faceTriangle;
-          if(faceVertex = 0){
+          if(vertexCount == 0){
             faceTriangle.one = vertices[stoi(faceVerticies[0]) - 1];
-            cout << vertices[stoi(faceVerticies[0]) - 1] << endl;
+            //cout << vertices[stoi(faceVerticies[0]) - 1] << endl;
             faceTriangle.u = uvs[stoi(faceVerticies[1]) - 1];
-            cout << uvs[stoi(faceVerticies[1]) - 1] << endl;
+            //cout << uvs[stoi(faceVerticies[1]) - 1] << endl;
             faceTriangle.norm1 = normals[stoi(faceVerticies[2]) - 1];
-            cout << normals[stoi(faceVerticies[2]) - 1] << endl;
+            //cout << normals[stoi(faceVerticies[2]) - 1] << endl;
           }
-          else if(faceVertex = 1){
+          else if(vertexCount == 1){
             faceTriangle.two = vertices[stoi(faceVerticies[0]) - 1];
-            cout << vertices[stoi(faceVerticies[0]) - 1] << endl;
+            //cout << vertices[stoi(faceVerticies[0]) - 1] << endl;
             faceTriangle.v = uvs[stoi(faceVerticies[1]) - 1];
-            cout << uvs[stoi(faceVerticies[1]) - 1] << endl;
+            //cout << uvs[stoi(faceVerticies[1]) - 1] << endl;
             faceTriangle.norm2 = normals[stoi(faceVerticies[2]) - 1];
-            cout << normals[stoi(faceVerticies[2]) - 1] << endl;
+            //cout << normals[stoi(faceVerticies[2]) - 1] << endl;
           }
-          else if(faceVertex = 2){
+          else if(vertexCount == 2){
             faceTriangle.three = vertices[stoi(faceVerticies[0]) - 1];
-            cout << vertices[stoi(faceVerticies[0]) - 1] << endl;
+            //cout << vertices[stoi(faceVerticies[0]) - 1] << endl;
             faceTriangle.w = uvs[stoi(faceVerticies[1]) - 1];
-            cout << uvs[stoi(faceVerticies[1]) - 1] << endl;
+            //cout << uvs[stoi(faceVerticies[1]) - 1] << endl;
             faceTriangle.norm3 = normals[stoi(faceVerticies[2]) - 1];
-            cout << normals[stoi(faceVerticies[2]) - 1] << endl;
+            //cout << normals[stoi(faceVerticies[2]) - 1] << endl;
           }
-          triangles.push_back(faceTriangle);
+          vertexCount++;
         }
       }
+      cout << faceTriangle.one << faceTriangle.two << faceTriangle.three << endl;
+      cout << faceTriangle.u << faceTriangle.v << faceTriangle.w << endl;
+      cout << faceTriangle.norm1 << faceTriangle.norm2 << faceTriangle.norm3 << endl;
+      triangles.push_back(faceTriangle);
     }
   }
+
   // how do I ray-trace?
   Vector3 camera_origin = Vector3{0, 0, 1};
   Vector3 camera_look_at = Vector3{0, 0, 0};
