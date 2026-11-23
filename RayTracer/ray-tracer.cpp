@@ -165,7 +165,7 @@ Vector3 trace_ray(Vector3 origin, Vector3 direction, int bounces = 2)
 
 int main()
 {
-  vector<string> objRead = readLines("rotatecube.obj");
+  vector<string> objRead = readLines("weirdthing.obj");
   for (const string &line : objRead)
   {
     vector<string> bluh = split(line, ' ');
@@ -185,7 +185,7 @@ int main()
       Triangle faceTriangle;
       int vertexCount = 0;
       for (const string &face : bluh){
-        cout << face << endl;
+        //cout << face << endl;
         if (face != "f"){
           vector<string> faceVerticies = split(face, '/');
           if(vertexCount == 0){
@@ -215,9 +215,9 @@ int main()
           vertexCount++;
         }
       }
-      cout << faceTriangle.one << faceTriangle.two << faceTriangle.three << endl;
-      cout << faceTriangle.u << faceTriangle.v << faceTriangle.w << endl;
-      cout << faceTriangle.norm1 << faceTriangle.norm2 << faceTriangle.norm3 << endl;
+      // cout << faceTriangle.one << faceTriangle.two << faceTriangle.three << endl;
+      // cout << faceTriangle.u << faceTriangle.v << faceTriangle.w << endl;
+      // cout << faceTriangle.norm1 << faceTriangle.norm2 << faceTriangle.norm3 << endl;
       triangles.push_back(faceTriangle);
     }
   }
